@@ -131,7 +131,9 @@
   teachers.append(element('legend', '¿De quién quieres ver las tareas?'));
   page.querySelector('.tracking-intro').append(teachers);
 
-  function addTeacherChoice(card, name, avatarName) {
+  const avatarFiles = { 'alejandro-blog': 'alejandro.svg' };
+
+  function addTeacherChoice(card, name, avatarFile) {
     const picker = element('input');
     picker.type = 'checkbox';
     picker.checked = false;
@@ -139,7 +141,7 @@
     card.hidden = true;
     const choice = element('label');
     const avatar = element('img', '', 'tracking-teacher-avatar');
-    avatar.src = 'assets/docentes/' + avatarName + '.svg';
+    avatar.src = 'assets/docentes/' + avatarFile;
     avatar.alt = '';
     avatar.width = 112;
     avatar.height = 122;
@@ -153,7 +155,8 @@
 
   for (const { card, heading, timeline, tasks } of cards) {
     card.id = heading.id + '-recuadro';
-    const portrait = addTeacherChoice(card, heading.textContent, heading.id.replace(/-heading$/, ''));
+    const person = heading.id.replace(/-heading$/, '');
+    const portrait = addTeacherChoice(card, heading.textContent, avatarFiles[person] || person + '.svg');
     const select = element('select');
     select.setAttribute('aria-label', 'Vista de ' + heading.textContent);
     for (const [value, title] of modes) {
@@ -203,7 +206,7 @@
   overview.setAttribute('aria-labelledby', 'tracking-overview-title');
   const title = element('h2', 'Fechas y destinatarios');
   title.id = 'tracking-overview-title';
-  title.prepend(addTeacherChoice(overview, 'Alejandro', 'alejandro'));
+  title.prepend(addTeacherChoice(overview, 'Erasmin', 'erasmin.png'));
   const select = element('select');
   select.setAttribute('aria-label', 'Vista de Fechas y destinatarios');
   for (const [value, label] of [['general', 'Tabla general'], ...modes]) {
