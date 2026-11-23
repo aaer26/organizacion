@@ -17,7 +17,7 @@
     const type = action.querySelector('.tracking-activity-type').textContent.replace(/:$/, '');
     const delivery = row.classList.contains('tracking-delivery');
     const label = action.cloneNode(true);
-    label.querySelectorAll('.tracking-project-icon, .tracking-activity-type, details').forEach(node => node.remove());
+    label.querySelectorAll('.tracking-project-icon, .tracking-activity-type, .task-completion, details').forEach(node => node.remove());
     const taskText = label.textContent.trim();
     const sender = delivery ? taskText.split(' te envía ')[0] : owner;
     return { row, owner, sender, time, action, type, delivery, taskText };
@@ -39,6 +39,8 @@
       ? task.taskText.replace(' te envía ', ' envía ') + ' a ' + task.owner
       : task.taskText);
     content.append(action);
+    const completion = task.action.querySelector('.task-completion');
+    if (completion) content.append(completion.cloneNode(true));
     const help = task.action.querySelector('details');
     if (help) content.append(help.cloneNode(true));
     return [time, content];
