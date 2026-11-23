@@ -93,7 +93,7 @@
 
     const table = element('table', '', 'tracking-person-list');
     const header = table.createTHead().insertRow();
-    const columns = overview ? ['Hecha', 'Fecha', 'Quién', 'Qué hacer'] : ['Fecha', 'Qué hacer', 'Hecha'];
+    const columns = overview ? ['Fecha', 'Quién', 'Qué hacer'] : ['Fecha', 'Qué hacer', 'Hecha'];
     for (const label of columns) {
       const cell = element('th', label);
       cell.scope = 'col';
@@ -107,16 +107,18 @@
       const [time, content, completion] = compactEntry(task, overview);
       const date = row.insertCell();
       date.className = 'tracking-date-cell';
-      date.append(time);
+      date.append(overview && completion ? agendaDate(time, completion) : time);
       if (overview) {
         const owner = row.insertCell();
         owner.className = 'tracking-owner-cell';
         owner.textContent = task.sender;
       }
       row.insertCell().append(content);
-      const status = row.insertCell(overview ? 0 : -1);
-      status.className = 'tracking-completion-cell';
-      if (completion) status.append(completion);
+      if (!overview) {
+        const status = row.insertCell();
+        status.className = 'tracking-completion-cell';
+        if (completion) status.append(completion);
+      }
     }
     return table;
   }
