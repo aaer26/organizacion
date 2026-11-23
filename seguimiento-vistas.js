@@ -39,11 +39,18 @@
       ? task.taskText.replace(' te envía ', ' envía ') + ' a ' + task.owner
       : task.taskText);
     content.append(action);
-    const completion = task.action.querySelector('.task-completion');
-    if (completion) content.append(completion.cloneNode(true));
+    const completion = task.action.querySelector('.task-completion')?.cloneNode(true);
+    if (completion) completion.classList.add('task-completion--icon');
     const help = task.action.querySelector('details');
     if (help) content.append(help.cloneNode(true));
-    return [time, content];
+    return [time, content, completion];
+  }
+
+  function agendaDate(time, completion) {
+    const date = element('div', '', 'tracking-agenda-date');
+    date.append(time);
+    if (completion) date.append(completion);
+    return date;
   }
 
   function groupedView(tasks, mode, overview = false) {
@@ -60,9 +67,9 @@
       const list = element('ul', '', 'tracking-view-list');
       for (const task of group) {
         const item = element('li', '', task.row.className);
-        const [time, content] = compactEntry(task, overview);
+        const [time, content, completion] = compactEntry(task, overview);
         if (overview) content.prepend(element('span', task.sender, 'tracking-overview-owner'));
-        item.append(time, content);
+        item.append(agendaDate(time, completion), content);
         list.append(item);
       }
       card.append(element('h3', title), list);
@@ -76,9 +83,9 @@
       const list = element('ol', '', 'tracking-view-list tracking-compact-timeline');
       for (const task of tasks) {
         const row = element('li', '', task.row.className);
-        const [time, content] = compactEntry(task, overview);
+        const [time, content, completion] = compactEntry(task, overview);
         if (overview) content.prepend(element('span', task.sender, 'tracking-overview-owner'));
-        row.append(time, content);
+        row.append(agendaDate(time, completion), content);
         list.append(row);
       }
       return list;
@@ -86,7 +93,7 @@
 
     const table = element('table', '', 'tracking-person-list');
     const header = table.createTHead().insertRow();
-    const columns = overview ? ['Fecha', 'Quién', 'Qué hacer'] : ['Fecha', 'Qué hacer'];
+    const columns = overview ? ['Fecha', 'Quién', 'Qué hacer', 'Hecha'] : ['Fecha', 'Qué hacer', 'Hecha'];
     for (const label of columns) {
       const cell = element('th', label);
       cell.scope = 'col';
@@ -96,10 +103,13 @@
     for (const task of tasks) {
       const row = body.insertRow();
       row.className = task.row.className;
-      const [time, content] = compactEntry(task, overview);
+      const [time, content, completion] = compactEntry(task, overview);
       row.insertCell().append(time);
       if (overview) row.insertCell().textContent = task.sender;
       row.insertCell().append(content);
+      const status = row.insertCell();
+      status.className = 'tracking-completion-cell';
+      if (completion) status.append(completion);
     }
     return table;
   }
@@ -231,5 +241,3 @@
   overview.append(header, output);
   page.append(overview);
 })();
-
-
