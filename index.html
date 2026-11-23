@@ -1,8 +1,16 @@
 <!doctype html>
 <html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#fae8a3"><title>Erasmus+ | Gestión de actividades · IES Newton Salas</title><meta name="description" content="Proyectos, actividades y responsables Erasmus+ del IES Newton Salas. Un espacio para consultar y coordinar las iniciativas del centro."><link rel="stylesheet" href="theme.css"><link rel="stylesheet" href="seguimiento.css"><script defer src="seguimiento-vistas.js"></script><script defer src="data.js"></script><script defer src="icons.js"></script><script defer src="activity-visuals.js"></script><script defer src="calendar.js"></script><script defer src="app.js"></script><script defer src="roster-filter.js"></script><style>
-.task-completion{display:inline-flex;align-items:center;gap:.45rem;margin:.4rem .25rem;color:#14532d;background:#e9f8e9;border-radius:999px;padding:.25rem .65rem;font-size:.875rem;font-weight:700;text-decoration:underline;position:relative;white-space:nowrap}
-.task-completion span{display:inline-grid;place-items:center;width:1.4rem;height:1.4rem;border-radius:50%;background:#16803c;color:white;outline:1px solid #16803c;border:1px solid white}
-.task-completion:is(:hover,:focus-visible)::after{content:attr(title);position:absolute;top:100%;left:0;background:#17382a;color:white;padding:.2rem .45rem;border-radius:.25rem;z-index:2}
+.task-completion{display:inline-flex;align-items:center;gap:.45rem;margin:.4rem .25rem;color:#14532d;background:#e9f8e9;border-radius:999px;padding:.25rem .65rem;font-size:.875rem;font-weight:700;text-decoration:none;position:relative;white-space:nowrap}
+.task-completion .task-completion-check{display:inline-grid;place-items:center;width:1.4rem;height:1.4rem;border-radius:50%;background:#16803c;color:white;outline:1px solid #16803c;border:1px solid white}
+.task-completion:is(:hover,:focus-visible)::after{content:attr(data-completed-on);position:absolute;top:100%;left:0;background:#17382a;color:white;padding:.2rem .45rem;border-radius:.25rem;z-index:2}
+.activity-card-heading>.task-completion{position:absolute;inset-block-start:.55rem;inset-inline-end:.55rem;margin:0}
+.activity-card-heading>.task-completion::after,.tracking-completion-cell .task-completion::after{left:auto;right:0}
+.task-completion.task-completion--icon{padding:0;margin:0;background:transparent;font-size:inherit}
+.task-completion--icon .task-completion-label{display:none}
+.task-completion--icon .task-completion-check{width:1em;height:1em;line-height:1;font-size:inherit}
+.tracking-agenda-date{display:flex;flex-direction:column;align-items:flex-start;gap:.27rem;font-size:.9rem}
+.tracking-agenda-date .task-completion{margin-inline-start:.2em}
+.tracking-person-list th:last-child,.tracking-completion-cell{text-align:center;white-space:nowrap;width:1%}
 </style></head>
 <body><a class="skip" href="#contenido">Saltar al contenido</a>
 <header><div class="brandrow"><a class="brand" href="#inicio" title="Volver al inicio" aria-label="Inicio · IES Newton Salas"><img src="assets/newton-salas.png" width="87" height="82" alt="Logotipo IES Newton Salas"><span>IES Newton Salas<small>Proyectos europeos · Formación Profesional</small></span></a><div class="header-actions"><a class="objectives-link" id="summary-link" href="#resumen"><span aria-hidden="true">🗂️</span> Resumen</a><a class="objectives-link" id="calendar-link" href="#calendario"><span aria-hidden="true">📅</span> Calendario</a><a class="objectives-link" id="ideas-link" href="#ideas"><span aria-hidden="true">💭</span> Ideas</a><a class="objectives-link" id="tracking-link" href="#seguimiento"><span aria-hidden="true">📍</span> Seguimiento</a></div><div class="institutional"><a class="erasmus-mark" href="https://erasmus-plus.ec.europa.eu/es" target="_blank" rel="noopener">Erasmus<span>+</span></a><a class="eu-mark" href="https://european-union.europa.eu/index_es" target="_blank" rel="noopener"><img src="assets/union-europea.svg" width="66" height="44" alt="Bandera de la Unión Europea"><span>Unión<br>Europea</span></a></div></div><nav aria-label="Apartados del proyecto"><div id="nav"></div></nav></header>
@@ -19,7 +27,7 @@
 <h2 id="alejandro-blog-heading">Alejandro</h2>
 <ol class="tracking-timeline" role="list">
 <li class="tracking-task"><time datetime="2026-11-19">19/11/2026</time><div class="tracking-text"><span class="tracking-project-icon" aria-hidden="true">🌍</span><span class="tracking-activity-type">4.1 y 5.1 · Subir a la web:</span> Primera versión del <a href="https://blogerasmus.erasmusiesnewtonsalas.blog/">Blog Erasmus+</a> subida a <a href="https://github.com/aaer26/blogerasmus">GitHub</a>. Incluye portada, Labor social, Movilidades y aprendizaje, diario interactivo y contacto. Próxima acción: revisar la publicación inicial del blog. Responsable web: Alejandro; Elisa en edición de vídeo.</div></li>
-<li id="inicio-recuento-alumnas" class="tracking-task tracking-survey"><time datetime="2026-11-23">23/11/2026</time><span class="tracking-text"><span class="tracking-project-icon" aria-hidden="true">📋</span><span class="tracking-activity-type">Inicio de curso · Matrícula FP:</span> Recoger el número de alumnas matriculadas en FP de Informática <a class="task-completion" href="https://newton-salas-seguimiento-revision.fancy-hawk-4038.chatgpt.site/estadisticas-alumnas.html" title="23 nov 2026" aria-label="Hecha el 23 nov 2026. Ver tabla de estadísticas"><span aria-hidden="true">✓</span> Hecha</a></span></li>
+<li id="inicio-recuento-alumnas" class="tracking-task tracking-survey"><time datetime="2026-11-23">23/11/2026</time><span class="tracking-text"><span class="tracking-project-icon" aria-hidden="true">📋</span><span class="tracking-activity-type">Inicio de curso · Matrícula FP:</span> Recoger el número de alumnas matriculadas en FP de Informática <a class="task-completion" href="https://newton-salas-seguimiento-revision.fancy-hawk-4038.chatgpt.site/estadisticas-alumnas.html" data-completed-on="23 nov 2026" aria-label="Hecha el 23 nov 2026. Ver tabla de estadísticas"><span class="task-completion-check" aria-hidden="true">✓</span><span class="task-completion-label" aria-hidden="true">Hecha</span></a></span></li>
 <li class="tracking-task tracking-survey"><time datetime="2026-11-23">23/11/2026</time><span class="tracking-text"><span class="tracking-project-icon" aria-hidden="true">📋</span><span class="tracking-activity-type">Inicio de curso · Encuestas ESO:</span> Hacer las encuestas en la ESO (de 1.º a 4.º) para valorar el interés del alumnado femenino por la informática</span></li>
 </ol>
 </article>
@@ -135,25 +143,3 @@
 </article>
 </section>
 </main><footer><div class="footer-logos"><img src="assets/newton-salas.png" width="72" height="68" alt="IES Newton Salas"><span class="erasmus-mark">Erasmus<span>+</span></span><div class="eu-mark"><img src="assets/union-europea.svg" width="60" height="40" alt="Bandera de la Unión Europea"><span>Unión<br>Europea</span></div></div><p>Proyectos Erasmus+ VET · IES Newton Salas</p></footer></body></html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
