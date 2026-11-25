@@ -249,4 +249,23 @@
   renderOverview();
   overview.append(header, output);
   page.append(overview);
+
+  const controls = [...page.querySelectorAll('select, input[type="checkbox"]')];
+  const savedControls = history.state?.trackingControls;
+  if (Array.isArray(savedControls)) {
+    for (const [index, control] of controls.entries()) {
+      const saved = savedControls[index];
+      if (control.type === 'checkbox' && typeof saved === 'boolean') control.checked = saved;
+      if (control.tagName === 'SELECT' && [...control.options].some(option => option.value === saved)) {
+        control.value = saved;
+      }
+      control.dispatchEvent(new Event('change'));
+    }
+  }
+
+  page.addEventListener('click', event => {
+    if (!event.target.closest('a.task-completion')) return;
+    const trackingControls = controls.map(control => control.type === 'checkbox' ? control.checked : control.value);
+    history.replaceState({ ...history.state, trackingControls }, '');
+  });
 })();
