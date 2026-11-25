@@ -36,8 +36,13 @@ $('project-cards').innerHTML=projects.map((p,i)=>i>=5?'':`<a class="project-card
 function renderActivities(){const p=projects[selected],q=$('search').value.trim().toLocaleLowerCase('es');let count=0;
  $('activities').innerHTML=p.activities.map((a,i)=>{const [drawing,title,description]=window.ACTIVITY_VISUALS[selected][i];if(q&&!`${a.title} ${title} ${description} ${a.paragraphs.join(' ')} ${(a.points||[]).join(' ')}`.toLocaleLowerCase('es').includes(q))return '';count++;const color=colors[(selected+i)%colors.length];const illustration=`<svg viewBox="0 0 180 100" fill="none" aria-hidden="true"><path d="M44 16c24-21 86-10 100 18s-3 53-41 55S32 84 28 58s-2-26 16-42" fill="${color}" opacity=".23"/><circle cx="139" cy="24" r="10" fill="${color}" opacity=".55"/><path d="m25 28 4-7 4 7 8 2-8 3-4 8-3-8-8-3zm122 42 3-6 3 6 6 2-6 2-3 6-3-6-6-2z" fill="${color}"/><path d="M45 82h83M17 52l8 2m119-7 9-4M47 13l3 6" stroke="#647465" stroke-width="1.7" stroke-linecap="round"/><g transform="translate(58 17)" fill="none" stroke="#2b5147" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">${window.ACTIVITY_DRAWINGS[drawing]}</g></svg>`;return `<article class="activity-card" style="--activity-color:${color}" aria-labelledby="activity-${selected}-${i}"><div class="activity-card-heading"><span class="activity-label">ACTIVIDAD ${String(i+1).padStart(2,'0')}</span><h4 id="activity-${selected}-${i}">${escape(title)}</h4>${a.optional?'<span class="optional">Por valorar</span>':''}</div><div class="activity-drawing">${illustration}</div><details><summary><span class="activity-name">Ver actividad y responsables</span><span class="toggle" aria-hidden="true">＋</span></summary><div class="activity-body"><p class="original-activity-title"><b>${escape(a.title)}</b></p>${a.paragraphs.map(paragraph).join('')}${a.points?'<ul class="activity-points">'+a.points.map(point=>'<li>'+escape(point)+'</li>').join('')+'</ul>':''}</div></details></article>`;}).join('');
  $('local-count').textContent=q?`${count} de ${p.activities.length}`:p.activities.length;$('empty').hidden=count>0;
- for (const [activityIndex, taskId] of ['inicio-diseno-encuesta-eso', 'inicio-recuento-alumnas'].entries()) {
-  const heading = document.getElementById(`activity-6-${activityIndex}`);
+ const completedActivities = {
+  'activity-0-1': 'conectados-diseno-encuestas-elisa',
+  'activity-6-0': 'inicio-diseno-encuesta-eso',
+  'activity-6-1': 'inicio-recuento-alumnas'
+ };
+ for (const [activityId, taskId] of Object.entries(completedActivities)) {
+  const heading = $(activityId);
   const completion = document.querySelector(`#${taskId} .task-completion`);
   if (heading && completion) heading.after(completion.cloneNode(true));
  }
